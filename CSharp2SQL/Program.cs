@@ -9,6 +9,10 @@ namespace CSharp2SQL
         {
             var sqllib = new SqlLib();
             sqllib.Connect();
+
+            var users = sqllib.GetAllUsers();
+            var user = sqllib.GetByPK(4);
+
             sqllib.Disconnet();
         }
     }
