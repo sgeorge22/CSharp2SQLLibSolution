@@ -10,6 +10,13 @@ namespace CSharp2SQL
             var sqllib = new SqlLib();
             sqllib.Connect();
 
+            var newUser = new User()
+            {
+                Id = 0, Username = "XYZ", Password = "XYZ", Firstname = "XYZ", Lastname = "XYZ", 
+                Phone = "XYZ", Email = "XYZ", IsReviewer = true, IsAdmin = true
+            };
+            var success = sqllib.Create(newUser);
+
             var users = sqllib.GetAllUsers();
             var user = sqllib.GetByPK(4);
 

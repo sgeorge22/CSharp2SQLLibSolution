@@ -8,6 +8,19 @@ namespace CSharp2SQLLib
     {
         public SqlConnection sqlconn { get; set; }
 
+        public bool Create(User user)
+        {
+            var sql = $"INSERT into Users" +
+                        " (Username, Password, Firstname, Lastname, Phone, Email, IsReviewer, IsAdmin) " +
+                        " VALUES " +
+                        $" ('{user.Username}', '{user.Password}', '{user.Firstname}', '{user.Lastname}', '{user.Phone}', " +
+                        $" '{user.Email}', {(user.IsReviewer ? 1 : 0)}, {(user.IsAdmin ? 1 : 0)}); "; //always include spaces by the "" and the values
+            var sqlcmd = new SqlCommand(sql, sqlconn);
+            var rowsAffected = sqlcmd.ExecuteNonQuery();
+
+            return (rowsAffected == 1);
+        }
+
         public User GetByPK(int id)
         {
             var sql = $"SELECT * From Users Where Id = {id}; ";
