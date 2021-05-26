@@ -143,43 +143,7 @@ namespace CSharp2SQLLib
             sqldatareader.Close();
             return users;
         }
-        public List<Vendor> GetAllVendors() 
-        {
-            var sql = "SELECT * From Vendors;";
-            var cmd = new SqlCommand(sql, sqlconn);
-            var sqldatareader = cmd.ExecuteReader();
-
-            var vendors = new List<Vendor>();
-            while (sqldatareader.Read())
-            {
-                var id = Convert.ToInt32(sqldatareader["Id"]);
-                var code = Convert.ToInt32(sqldatareader["Code"]);
-                var name = Convert.ToString(sqldatareader["Name"]);
-                var address = Convert.ToString(sqldatareader["Address"]);
-                var city = Convert.ToString(sqldatareader["City"]);
-                var state = Convert.ToString(sqldatareader["State"]);
-                var zip = Convert.ToString(sqldatareader["Zip"]);
-                var phone = Convert.ToString(sqldatareader["Phone"]);
-                var email = Convert.ToString(sqldatareader["Email"]);
-
-                var vendor = new Vendor()
-                {
-                    Id = id,
-                    Code = code,
-                    Name = name,
-                    Address = address,
-                    City = city,
-                    State = state,
-                    Zip = zip,
-                    Phone = phone,
-                    Email = email
-                };
-                vendors.Add(vendor);
-
-            }
-                sqldatareader.Close();
-                return vendors;
-        }
+        
         public void Connect()
         {
             var connStr = "server=localhost\\sqlexpress01;" +
