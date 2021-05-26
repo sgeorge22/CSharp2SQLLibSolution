@@ -13,6 +13,8 @@ namespace CSharp2SQL
             var users = sqllib.GetAllUsers();
             var user = sqllib.GetByPK(4);
 
+            var vendors = sqllib.GetAllVendors();
+
             sqllib.Disconnet();
         }
     }
