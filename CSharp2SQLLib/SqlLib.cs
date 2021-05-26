@@ -8,14 +8,79 @@ namespace CSharp2SQLLib
     {
         public SqlConnection sqlconn { get; set; }
 
+        public bool Remove(User user)
+        {
+            var sql = $"DELETE from Users " +
+                         " Where Id = @id;";
+            var sqlcmd = new SqlCommand(sql, sqlconn);
+            sqlcmd.Parameters.AddWithValue("@id", user.Id);
+            sqlcmd.Parameters.AddWithValue("@username", user.Username);
+            sqlcmd.Parameters.AddWithValue("@password", user.Password);
+            sqlcmd.Parameters.AddWithValue("@firstname", user.Firstname);
+            sqlcmd.Parameters.AddWithValue("@lastname", user.Lastname);
+            sqlcmd.Parameters.AddWithValue("@phone", user.Phone);
+            sqlcmd.Parameters.AddWithValue("@email", user.Email);
+            sqlcmd.Parameters.AddWithValue("@isreviewer", user.IsReviewer);
+            sqlcmd.Parameters.AddWithValue("@isadmin", user.IsAdmin);
+            var rowsAffected = sqlcmd.ExecuteNonQuery();
+
+            return (rowsAffected == 1);
+        }
+
+        public bool Change(User user)
+        {
+            var sql = $"UPDATE Users Set " +
+                         " Username = @username, " +
+                         " Password = @password, " +
+                         " Firstname = @firstname, " +
+                         " Lastname = @lastname, " +
+                         " Phone = @phone, " +
+                         " Email = @email, " +
+                         " IsReviewer = @isreviewer, " +
+                         " IsAdmin = @isadmin " +
+                         " Where Id = @id;";
+            var sqlcmd = new SqlCommand(sql, sqlconn);
+            sqlcmd.Parameters.AddWithValue("@id", user.Id);
+            sqlcmd.Parameters.AddWithValue("@username", user.Username);
+            sqlcmd.Parameters.AddWithValue("@password", user.Password);
+            sqlcmd.Parameters.AddWithValue("@firstname", user.Firstname);
+            sqlcmd.Parameters.AddWithValue("@lastname", user.Lastname);
+            sqlcmd.Parameters.AddWithValue("@phone", user.Phone);
+            sqlcmd.Parameters.AddWithValue("@email", user.Email);
+            sqlcmd.Parameters.AddWithValue("@isreviewer", user.IsReviewer);
+            sqlcmd.Parameters.AddWithValue("@isadmin", user.IsAdmin);
+            var rowsAffected = sqlcmd.ExecuteNonQuery();
+
+            return (rowsAffected == 1);
+        }
+
+        public bool CreateMultiple(List<User> users)
+        {
+            var success = true;
+            foreach(var user in users)
+            {
+                success = success && Create(user);
+            }
+            return success;
+        }
+
         public bool Create(User user)
         {
+
             var sql = $"INSERT into Users" +
                         " (Username, Password, Firstname, Lastname, Phone, Email, IsReviewer, IsAdmin) " +
                         " VALUES " +
-                        $" ('{user.Username}', '{user.Password}', '{user.Firstname}', '{user.Lastname}', '{user.Phone}', " +
-                        $" '{user.Email}', {(user.IsReviewer ? 1 : 0)}, {(user.IsAdmin ? 1 : 0)}); "; //always include spaces by the "" and the values
+                        $" (@username, @password, @firstname, @lastname, @phone, " +
+                        $" @email, @isreviewer, @isadmin); "; //always include spaces by the "" and the values
             var sqlcmd = new SqlCommand(sql, sqlconn);
+            sqlcmd.Parameters.AddWithValue("@username", user.Username);
+            sqlcmd.Parameters.AddWithValue("@password", user.Password);
+            sqlcmd.Parameters.AddWithValue("@firstname", user.Firstname);
+            sqlcmd.Parameters.AddWithValue("@lastname", user.Lastname);
+            sqlcmd.Parameters.AddWithValue("@phone", user.Phone);
+            sqlcmd.Parameters.AddWithValue("@email", user.Email);
+            sqlcmd.Parameters.AddWithValue("@isreviewer", user.IsReviewer);
+            sqlcmd.Parameters.AddWithValue("@isadmin", user.IsAdmin);
             var rowsAffected = sqlcmd.ExecuteNonQuery();
 
             return (rowsAffected == 1);
@@ -38,6 +103,7 @@ namespace CSharp2SQLLib
                 Username = Convert.ToString(sqldatareader["Username"]),
                 Password = Convert.ToString(sqldatareader["Password"]),
                 Firstname = Convert.ToString(sqldatareader["Firstname"]),
+                Lastname = Convert.ToString(sqldatareader["Lastname"]),
                 Phone = Convert.ToString(sqldatareader["Phone"]),
                 Email = Convert.ToString(sqldatareader["Email"]),
                 IsReviewer = Convert.ToBoolean(sqldatareader["IsReviewer"]),

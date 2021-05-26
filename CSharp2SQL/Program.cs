@@ -9,16 +9,23 @@ namespace CSharp2SQL
         {
             var sqllib = new SqlLib();
             sqllib.Connect();
+            
+            //var user = sqllib.GetByPK(4);
+            //user.Phone = "513-555-1212";
+            //user.Email = "user@email.com";
+            //var success = sqllib.Change(user);
+
+            var user = sqllib.GetByPK(5);
+            var success = sqllib.Remove(user);
 
             var newUser = new User()
             {
-                Id = 0, Username = "XYZ", Password = "XYZ", Firstname = "XYZ", Lastname = "XYZ", 
-                Phone = "XYZ", Email = "XYZ", IsReviewer = true, IsAdmin = true
+                Id = 0, Username = "XYZ1", Password = "XYZ1", Firstname = "XYZ1", Lastname = "XYZ1", 
+                Phone = "XYZ1", Email = "XYZ1", IsReviewer = true, IsAdmin = true
             };
-            var success = sqllib.Create(newUser);
+            //var success = sqllib.Create(newUser);
 
             var users = sqllib.GetAllUsers();
-            var user = sqllib.GetByPK(4);
 
             var vendors = sqllib.GetAllVendors();
 
