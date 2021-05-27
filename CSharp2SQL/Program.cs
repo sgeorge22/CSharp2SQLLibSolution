@@ -20,6 +20,8 @@ namespace CSharp2SQL
         };
         static void Main(string[] args)
         {
+            var sum1 = ints.Where(x => x % 7 == 0 || x % 11 == 0).Sum();
+
             var avg = ints.Where(x => x % 3 == 0).Average();
             var sum = 0;
             var cnt = 0;
@@ -48,7 +50,7 @@ namespace CSharp2SQL
             //    var vendors = vendorsController.GetAll();
 
             //    var productcontroller = new ProductController(sqlconn);
-            //    //var products = productcontroller.GetAll();
+            //    var products = productcontroller.GetAll();
             //    var products = productcontroller.GetByPK(11);
             //    //var success = productcontroller.Create(newProduct, 1340);
 
@@ -77,7 +79,7 @@ namespace CSharp2SQL
 
             //    //var vendors = sqllib.GetAllVendors();
 
-            //    //sqllib.Disconnet();
+              //  sqllib.Disconnet();
         }
         }
 }
