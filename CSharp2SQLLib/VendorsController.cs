@@ -26,6 +26,23 @@ namespace CSharp2SQLLib
             return vendor;
         }
 
+        private void FillVendorParameters(SqlCommand sqlcmd, Vendor vendor)
+        {
+            
+            sqlcmd.Parameters.AddWithValue("@code", vendor.Code);
+            sqlcmd.Parameters.AddWithValue("@name", vendor.Name);
+            sqlcmd.Parameters.AddWithValue("@address", vendor.Address);
+            sqlcmd.Parameters.AddWithValue("@city", vendor.City);
+            sqlcmd.Parameters.AddWithValue("@state", vendor.State);
+            sqlcmd.Parameters.AddWithValue("@zip", vendor.Zip);
+            sqlcmd.Parameters.AddWithValue("@phone", vendor.Phone);
+            sqlcmd.Parameters.AddWithValue("@email", vendor.Email);
+            
+
+
+        }
+        
+
         public Vendor GetByCode(string Code)
         {
             var sql = "SELECT * From Vendors Where Code = @code;";
@@ -82,14 +99,7 @@ namespace CSharp2SQLLib
                          " Where Id = @id;";
             var sqlcmd = new SqlCommand(sql, connection.SqlConn);
             sqlcmd.Parameters.AddWithValue("@id", vendor.Id);
-            sqlcmd.Parameters.AddWithValue("@code", vendor.Code);
-            sqlcmd.Parameters.AddWithValue("@name", vendor.Name);
-            sqlcmd.Parameters.AddWithValue("@address", vendor.Address);
-            sqlcmd.Parameters.AddWithValue("@city", vendor.City);
-            sqlcmd.Parameters.AddWithValue("@state", vendor.State);
-            sqlcmd.Parameters.AddWithValue("@zip", vendor.Zip);
-            sqlcmd.Parameters.AddWithValue("@phone", vendor.Phone);
-            sqlcmd.Parameters.AddWithValue("@email", vendor.Email);
+            FillVendorParameters(sqlcmd, vendor);
             var rowsAffected = sqlcmd.ExecuteNonQuery();
 
             return (rowsAffected == 1);
@@ -103,20 +113,13 @@ namespace CSharp2SQLLib
                          " Where Id = @id;";
             var sqlcmd = new SqlCommand(sql, connection.SqlConn);
             sqlcmd.Parameters.AddWithValue("@id", vendor.Id);
-            sqlcmd.Parameters.AddWithValue("@code", vendor.Code);
-            sqlcmd.Parameters.AddWithValue("@name", vendor.Name);
-            sqlcmd.Parameters.AddWithValue("@address", vendor.Address);
-            sqlcmd.Parameters.AddWithValue("@city", vendor.City);
-            sqlcmd.Parameters.AddWithValue("@state", vendor.State);
-            sqlcmd.Parameters.AddWithValue("@zip", vendor.Zip);
-            sqlcmd.Parameters.AddWithValue("@phone", vendor.Phone);
-            sqlcmd.Parameters.AddWithValue("@email", vendor.Email);
+            
             var rowsAffected = sqlcmd.ExecuteNonQuery();
-
+            FillVendorParameters(sqlcmd, vendor);
             return (rowsAffected == 1);
         }
 
-        public bool Create(Vendor user)
+        public bool Create(Vendor vendor)
         {
 
             var sql = $"INSERT into Vendors" +
@@ -125,14 +128,7 @@ namespace CSharp2SQLLib
                         $" (@code, @name, @address, @city, @state, " +
                         $" @zip, @phone, @email); ";
             var sqlcmd = new SqlCommand(sql, connection.SqlConn);
-            sqlcmd.Parameters.AddWithValue("@code", user.Code);
-            sqlcmd.Parameters.AddWithValue("@name", user.Name);
-            sqlcmd.Parameters.AddWithValue("@address", user.Address);
-            sqlcmd.Parameters.AddWithValue("@city", user.City);
-            sqlcmd.Parameters.AddWithValue("@state", user.State);
-            sqlcmd.Parameters.AddWithValue("@zip", user.Zip);
-            sqlcmd.Parameters.AddWithValue("@phone", user.Phone);
-            sqlcmd.Parameters.AddWithValue("@email", user.Email);
+            FillVendorParameters(sqlcmd, vendor);
             var rowsAffected = sqlcmd.ExecuteNonQuery();
 
             return (rowsAffected == 1);
