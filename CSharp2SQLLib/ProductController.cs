@@ -11,7 +11,7 @@ namespace CSharp2SQLLib
 
         public List<Product> GetAll()
         {
-            var sql = "SELECT * From Products;";
+            var sql = "SELECT * From Products; join Vendors on Products.VendorId = Vendors.Id; ";
             var cmd = new SqlCommand(sql, connection.SqlConn);
             var reader = cmd.ExecuteReader();
             var products = new List<Product>();
