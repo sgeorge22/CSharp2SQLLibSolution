@@ -60,7 +60,7 @@ namespace CSharp2SQLLib
         //    var vendCtrl = new VendorsController(connection);
         //    var vendor = vendCtrl.GetByCode(VendorCode);
         //    product.VendorId = vendor.Id;
-        //        return Create(product);
+        //    return Create(product);
         //}
 
         public bool Create(Product product)
