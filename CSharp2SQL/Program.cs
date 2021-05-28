@@ -22,7 +22,7 @@ namespace CSharp2SQL
         {
             var sum1 = ints.Where(x => x % 7 == 0 || x % 11 == 0).Sum();
 
-            var avg = ints.Where(x => x % 3 == 0).Average();
+            var avg = ints.Where(x => x % 3 == 0).Count();
             var sum = 0;
             var cnt = 0;
             foreach (var i in ints)
